@@ -2,12 +2,13 @@
 
 Public Class frmMain
     Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowseStarbound.Click, btnBrowseMod.Click
+        Dim tempName As String = sender.Name
         Dim dlgBrowseResult As DialogResult = dlgBrowseFolder.ShowDialog
         If dlgBrowseResult = Windows.Forms.DialogResult.OK Then
-            Select Case sender.name
+            Select Case tempName
                 Case "btnBrowseStarbound"
                     txtStarboundPath.Text = dlgBrowseFolder.SelectedPath
-                Case "btnBrowsePath"
+                Case "btnBrowseMod"
                     txtModPath.Text = dlgBrowseFolder.SelectedPath
             End Select
         End If

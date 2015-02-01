@@ -12,3 +12,9 @@ C:\_Projects\GitHub\StarboundModPacker\StarboundModPacker\bin\Release\StarboundM
 C:\_Projects\GitHub\StarboundModPacker\StarboundModPacker\obj\Release\StarboundModPacker.exe
 C:\_Projects\GitHub\StarboundModPacker\StarboundModPacker\obj\Release\StarboundModPacker.xml
 C:\_Projects\GitHub\StarboundModPacker\StarboundModPacker\obj\Release\StarboundModPacker.pdb
+C:\_Projects\GitHub\StarboundModPacker\StarboundModPacker\bin\Release\StarboundModPacker.exe
+C:\_Projects\GitHub\StarboundModPacker\StarboundModPacker\bin\Release\StarboundModPacker.pdb
+C:\_Projects\GitHub\StarboundModPacker\StarboundModPacker\bin\Release\StarboundModPacker.xml
+C:\_Projects\GitHub\StarboundModPacker\StarboundModPacker\obj\Release\StarboundModPacker.frmMain.resources
+C:\_Projects\GitHub\StarboundModPacker\StarboundModPacker\obj\Release\StarboundModPacker.Resources.resources
+C:\_Projects\GitHub\StarboundModPacker\StarboundModPacker\obj\Release\StarboundModPacker.vbproj.GenerateResource.Cache
