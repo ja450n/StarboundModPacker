@@ -1,0 +1,11 @@
+C:\Users\ja450n\AppData\Local\Temporary Projects\StarboundModPacker\bin\Debug\StarboundModPacker.exe.config
+C:\_Projects\CodeProjects\StarboundModPacker\StarboundModPacker\bin\Debug\StarboundModPacker.exe.config
+C:\_Projects\CodeProjects\StarboundModPacker\StarboundModPacker\bin\Debug\StarboundModPacker.exe
+C:\_Projects\CodeProjects\StarboundModPacker\StarboundModPacker\bin\Debug\StarboundModPacker.pdb
+C:\_Projects\CodeProjects\StarboundModPacker\StarboundModPacker\bin\Debug\StarboundModPacker.xml
+C:\_Projects\CodeProjects\StarboundModPacker\StarboundModPacker\obj\Debug\StarboundModPacker.frmMain.resources
+C:\_Projects\CodeProjects\StarboundModPacker\StarboundModPacker\obj\Debug\StarboundModPacker.Resources.resources
+C:\_Projects\CodeProjects\StarboundModPacker\StarboundModPacker\obj\Debug\StarboundModPacker.vbproj.GenerateResource.Cache
+C:\_Projects\CodeProjects\StarboundModPacker\StarboundModPacker\obj\Debug\StarboundModPacker.exe
+C:\_Projects\CodeProjects\StarboundModPacker\StarboundModPacker\obj\Debug\StarboundModPacker.xml
+C:\_Projects\CodeProjects\StarboundModPacker\StarboundModPacker\obj\Debug\StarboundModPacker.pdb
