@@ -1,6 +1,9 @@
 ﻿Imports System.Web.Script.Serialization
 
 Public Class frmMain
+
+    Public packBoolean As Boolean = True
+
     Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowseStarbound.Click, btnBrowseMod.Click
         Dim tempName As String = sender.Name
         Dim dlgBrowseResult As DialogResult = dlgBrowseFolder.ShowDialog
@@ -26,6 +29,7 @@ Public Class frmMain
 
             Dim fileInfo As New IO.FileInfo(MyFiles(0))
             If fileInfo.Attributes = IO.FileAttributes.Directory Then
+                packBoolean = True
                 sender.Text = MyFiles(0)
                 If sender.Name = "txtModPath" Then
                     Dim dirInfoModPath As New IO.DirectoryInfo(txtModPath.Text)
@@ -35,8 +39,19 @@ Public Class frmMain
                         packMod()
                     End If
                 End If
+            ElseIf fileInfo.Attributes = IO.FileAttributes.Archive Then
+                If fileInfo.Extension = ".modpak" Or fileInfo.Extension = ".pak" Then
+                    packBoolean = False
+                    sender.Text = MyFiles(0)
+                    'Dim dirInfoModPath As New IO.DirectoryInfo(txtModPath.Text)
+                    'Dim modInfoFiles As IO.FileInfo() = dirInfoModPath.GetFiles("*.modinfo")
+                    'TextBox1.Text = System.IO.File.ReadAllText(modInfoFiles(0).FullName)
+                    If chkAutoPack.Checked = True Then
+                        unpackMod()
+                    End If
+                End If
             Else
-                MsgBox("You need to specify a directory, not a file!")
+                MsgBox("Invalid File/Path specified!")
             End If
 
         End If
@@ -47,7 +62,46 @@ Public Class frmMain
 
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        packMod()
+        If packBoolean = True Then
+            packMod()
+        Else
+            unpackMod()
+        End If
+
+    End Sub
+    Private Sub unpackMod()
+        Dim dirInfoStarboundPath As New IO.DirectoryInfo(txtStarboundPath.Text)
+        Dim dirInfoModPath As New IO.FileInfo(txtModPath.Text)
+        Dim assetUnpackerInfo As New IO.FileInfo(dirInfoStarboundPath.FullName & "\win32\asset_unpacker.exe")
+
+        If dirInfoStarboundPath.Exists Then
+            If assetUnpackerInfo.Exists Then
+                If dirInfoModPath.Exists Then
+
+                    Dim processExe As String = dirInfoStarboundPath.FullName & "\win32\asset_unpacker.exe"
+                    Dim processArgs As String = Chr(34) & dirInfoModPath.FullName & Chr(34) & " " & _
+                        Chr(34) & dirInfoModPath.FullName.Remove(dirInfoModPath.FullName.Length - dirInfoModPath.Extension.Length, dirInfoModPath.Extension.Length) & Chr(34)
+
+                    Dim unpackProcess As New Process()
+                    unpackProcess.StartInfo.FileName = processExe
+                    unpackProcess.StartInfo.Arguments = processArgs
+                    unpackProcess.StartInfo.UseShellExecute = False
+                    unpackProcess.StartInfo.RedirectStandardOutput = True
+
+                    unpackProcess.Start()
+                    TextBox1.Text = unpackProcess.StandardOutput.ReadToEnd()
+
+                    unpackProcess.WaitForExit()
+                Else
+                    MsgBox("Invalid Mod Path Specified!")
+                End If
+            Else
+                MsgBox("Asset_unpacker.exe not found, check your Starbound Path!")
+            End If
+        Else
+            MsgBox("Invalid Starbound Path Specified!")
+        End If
+
     End Sub
 
     Private Sub packMod()
@@ -82,7 +136,7 @@ Public Class frmMain
                                   Chr(34) & dirInfoModPath.Parent.FullName & "\" & jsonData.name & ".modpak" & Chr(34)
 
                     End If
-                    
+
                     Dim tempString As String
 
                     Dim packProcess As New Process()
@@ -114,6 +168,10 @@ Public Class frmMain
         Dim dirInfo As New IO.DirectoryInfo(txtModPath.Text)
         Dim modInfoFiles As IO.FileInfo() = dirInfo.GetFiles("*.modinfo")
         TextBox1.Text = System.IO.File.ReadAllText(modInfoFiles(0).FullName)
+    End Sub
+
+    Private Sub txtModPath_TextChanged(sender As Object, e As EventArgs) Handles txtModPath.TextChanged
+
     End Sub
 End Class
 

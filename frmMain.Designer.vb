@@ -52,7 +52,7 @@ Partial Class frmMain
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
         Me.btnSave.TabIndex = 2
-        Me.btnSave.Text = "Pack"
+        Me.btnSave.Text = "Un/Pack"
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'Label1
