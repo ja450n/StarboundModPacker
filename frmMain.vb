@@ -70,10 +70,19 @@ Public Class frmMain
                     jsonData = jsonData
 
                     Dim processExe As String = dirInfoStarboundPath.FullName & "\win32\asset_packer.exe"
-                    Dim processArgs As String = Chr(34) & jsonData.name & " " & jsonData.metadata.version & Chr(34) & " " & _
+                    Dim processArgs As String
+
+                    If Not jsonData.metadata Is Nothing AndAlso Not jsonData.metadata.version Is Nothing Then
+                        processArgs = Chr(34) & jsonData.name & " " & jsonData.metadata.version & Chr(34) & " " & _
+                                  Chr(34) & dirInfoModPath.FullName & Chr(34) & " " & _
+                                  Chr(34) & dirInfoModPath.Parent.FullName & "\" & jsonData.name & ".modpak" & Chr(34)
+                    Else
+                        processArgs = Chr(34) & jsonData.name & Chr(34) & " " & _
                                   Chr(34) & dirInfoModPath.FullName & Chr(34) & " " & _
                                   Chr(34) & dirInfoModPath.Parent.FullName & "\" & jsonData.name & ".modpak" & Chr(34)
 
+                    End If
+                    
                     Dim tempString As String
 
                     Dim packProcess As New Process()
