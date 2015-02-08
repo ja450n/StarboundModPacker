@@ -17,7 +17,15 @@ Public Class frmMain
                 Case "btnBrowseStarbound"
                     txtStarboundPath.Text = dlgBrowseFolder.SelectedPath
                 Case "btnBrowseMod"
-                    txtModPath.Text = dlgBrowseFolder.SelectedPath
+                    If modInfoFileValid(dlgBrowseFolder.SelectedPath) = True Then
+                        txtModPath.Text = dlgBrowseFolder.SelectedPath
+                        If chkAutoPack.Checked = True Then
+                            Dim packDelegate As delegatePack = New delegatePack(AddressOf packMod)
+                            packDelegate(txtStarboundPath.Text, dlgBrowseFolder.SelectedPath)
+                        End If
+                    Else
+                        MsgBox("No .modinfo file found, this is required!")
+                    End If
             End Select
         End If
     End Sub
@@ -34,21 +42,17 @@ Public Class frmMain
 
             Dim fileInfo As New IO.FileInfo(MyFiles(0))
             If fileInfo.Attributes = IO.FileAttributes.Directory Then
-                packBoolean = True
-                sender.Text = MyFiles(0)
                 If sender.Name = "txtModPath" Then
-                    Dim dirInfoModPath As New IO.DirectoryInfo(txtModPath.Text)
-                    Dim modInfoFiles As IO.FileInfo() = dirInfoModPath.GetFiles("*.modinfo")
-                    If modInfoFiles.Length > 0 Then
-                        txtModinfo.Text = System.IO.File.ReadAllText(modInfoFiles(0).FullName)
+                    If modInfoFileValid(MyFiles(0)) = True Then
+                        If chkAutoPack.Checked = True Then
+                            Dim packDelegate As delegatePack = New delegatePack(AddressOf packMod)
+                            packDelegate(txtStarboundPath.Text, MyFiles(0))
+                        End If
                     Else
                         MsgBox("No .modinfo file found, this is required!")
-                        Exit Sub
                     End If
-                    If chkAutoPack.Checked = True Then
-                        Dim packDelegate As delegatePack = New delegatePack(AddressOf packMod)
-                        packDelegate(txtStarboundPath.Text, MyFiles(0))
-                    End If
+                Else
+                    sender.Text = MyFiles(0)
                 End If
             Else
                 MsgBox("Invalid mod directory specified!")
@@ -56,6 +60,18 @@ Public Class frmMain
             End If
         End If
     End Sub
+
+    Private Function modInfoFileValid(ByVal modPath As String) As Boolean
+        Dim dirInfoModPath As New IO.DirectoryInfo(modPath)
+        Dim modInfoFiles As IO.FileInfo() = dirInfoModPath.GetFiles("*.modinfo")
+        If modInfoFiles.Length > 0 Then
+            txtModinfo.Text = System.IO.File.ReadAllText(modInfoFiles(0).FullName)
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
     Private Sub pnlDropUnpack_DragDrop(sender As Object, e As DragEventArgs) Handles pnlDropUnpack.DragDrop
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             Dim MyFiles() As String

@@ -179,7 +179,8 @@ Partial Class frmMain
         '
         'txtStatus
         '
-        Me.txtStatus.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtStatus.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtStatus.Location = New System.Drawing.Point(3, 16)
         Me.txtStatus.Multiline = True
         Me.txtStatus.Name = "txtStatus"
@@ -260,6 +261,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txtStarboundPath)
         Me.Controls.Add(Me.btnBrowseStarbound)
+        Me.MinimumSize = New System.Drawing.Size(600, 480)
         Me.Name = "frmMain"
         Me.Text = "Starbound ModPacker"
         Me.GroupBox1.ResumeLayout(False)
